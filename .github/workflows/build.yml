@@ -12,18 +12,18 @@ jobs:
       - name: Install deps
         run: |
           sudo apt update
-          sudo apt install -y openjdk-17-jdk zip unzip git python3-pip build-essential libssl-dev libffi-dev python3-dev
+          sudo apt install -y openjdk-17-jdk zip unzip git python3-pip python3-dev build-essential libssl-dev libffi-dev libsqlite3-dev
           pip install --upgrade pip
-          pip install buildozer Cython==0.29.33
+          pip install Cython==0.29.33 buildozer
+      - name: Clean old build
+        run: |
+          rm -rf .buildozer
+          rm -rf bin
       - name: Build APK
         run: |
-          yes | buildozer android debug || true
-          SDK=$HOME/.buildozer/android/platform/android-sdk
-          yes | $SDK/cmdline-tools/*/bin/sdkmanager --licenses || true
-          yes | $SDK/tools/bin/sdkmanager --licenses || true
-          buildozer android debug
+          yes | buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: APK
-          path: bin/*.apk
+          path: bin/*.apk:     
