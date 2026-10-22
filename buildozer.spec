@@ -8,8 +8,8 @@ source.include_exts = py,png,jpg,kv,atlas,ttf
 source.include_patterns = NotoNaskhArabic.ttf
 
 version = 1.0
-version.regex = __version__ = ['"](.*)['"]
-version.filename = %(source.dir)s/main.py
+#version.regex = __version__ = ['"](.*)['"]
+#version.filename = %(source.dir)s/main.py
 
 [buildozer]
 log_level = 2
