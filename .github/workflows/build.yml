@@ -5,24 +5,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install Dependencies
+      - name: Install Buildozer
         run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk zip unzip git python3-pip python3-dev build-essential libssl-dev libffi-dev libsqlite3-dev libbz2-dev
-          pip install --upgrade pip
-          pip install Cython==0.29.33 buildozer
-      - name: Force Clean
+          sudo apt update
+          sudo apt install -y openjdk-17-jdk zip unzip
+          pip install buildozer Cython==0.29.33
+      - name: Build
         run: |
-          rm -rf .buildozer
-          rm -rf ~/.buildozer
-          rm -rf bin
-          rm -rf /home/runner/.buildozer
-      - name: Build APK
-        run: |
+          rm -rf .buildozer bin
           buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
