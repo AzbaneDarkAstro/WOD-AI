@@ -14,10 +14,19 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip openjdk-17-jdk zip unzip libffi-dev libssl-dev
+          sudo apt install -y python3-pip openjdk-17-jdk zip unzip libffi-dev libssl-dev libtinfo5 libncurses5 || true
           pip install --upgrade pip
-          pip install buildozer Cython==0.29.33
-      - name: Build APK
+          pip install buildozer Cython==0.29.33 virtualenv
+      - name: Build APK First attempt
+        run: |
+          yes | buildozer android debug || echo "First build failed, fixing SDK now"
+      - name: Fix Android SDK
+        run: |
+          SDK_PATH=$HOME/.buildozer/android/platform/android-sdk
+          CMDLINE=$(find $SDK_PATH -name sdkmanager -type f | head -n 1)
+          yes | $CMDLINE --sdk_root=$SDK_PATH --licenses || true
+          yes | $CMDLINE --sdk_root=$SDK_PATH "build-tools;33.0.0" "platform-tools" "platforms;android-33" || true
+      - name: Build APK Second attempt
         run: |
           buildozer android debug
       - name: Upload APK
