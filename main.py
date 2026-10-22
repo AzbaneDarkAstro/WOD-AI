@@ -37,9 +37,9 @@ Window.clearcolor = BG
 FONT = "Roboto"
 
 
-font_file = Path(
-    "/storage/emulated/0/Download/NotoNaskhArabic.ttf"
-)
+font_file = Path(__file__).parent / "NotoNaskhArabic.ttf"
+
+
 
 
 if font_file.exists():
