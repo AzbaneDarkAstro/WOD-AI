@@ -17,11 +17,10 @@ android.permissions = INTERNET
 android.api = 33
 android.minapi = 21
 android.sdk = 33
-android.ndk = 28c
+android.ndk = 25b
 android.accept_sdk_license_agreements = True
-android.sdk_build_tools_version = 34.0.0
+android.sdk_build_tools_version = 33.0.2
 android.archs = arm64-v8a
 android.allow_backup = False
-
-p4a.branch = master
 p4a.bootstrap = sdl2
+p4a.branch = master
